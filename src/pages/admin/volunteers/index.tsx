@@ -23,6 +23,7 @@ import colors from "src/components/core/colors";
 import constants from "utils/constants";
 import { Volunteer, LoadMorePaginatedData, ApiResponse } from "utils/types";
 import urls from "utils/urls";
+import { getServerBaseUrl } from "utils/util";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 interface Props {
@@ -136,7 +137,7 @@ export async function getServerSideProps(context: NextPageContext) {
     try {
         // validate admin user
         const cookie = context.req?.headers.cookie;
-        const response = await fetch(`${urls.baseUrl}${urls.api.validateLogin}`, {
+        const response = await fetch(`${getServerBaseUrl(context.req)}${urls.api.validateLogin}`, {
             method: "POST",
             headers: {
                 cookie: cookie || "",

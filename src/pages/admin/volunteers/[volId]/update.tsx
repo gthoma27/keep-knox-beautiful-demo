@@ -5,6 +5,7 @@ import { Volunteer } from "utils/types";
 import UpdateVolunteer from "src/components/UpdateVolunteer";
 import { getVolunteer } from "server/actions/Volunteer";
 import urls from "utils/urls";
+import { getServerBaseUrl } from "utils/util";
 
 interface Props {
     vol: Volunteer;
@@ -18,7 +19,7 @@ export async function getServerSideProps(context: NextPageContext) {
     try {
         // validate valid admin user
         const cookie = context.req?.headers.cookie;
-        const response = await fetch(`${urls.baseUrl}${urls.api.validateLogin}`, {
+        const response = await fetch(`${getServerBaseUrl(context.req)}${urls.api.validateLogin}`, {
             method: "POST",
             headers: {
                 cookie: cookie || "",

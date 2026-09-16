@@ -5,6 +5,7 @@ import { Event } from "utils/types";
 import UpsertEvent from "src/components/UpsertEvent";
 import { getEvent } from "server/actions/Event";
 import urls from "utils/urls";
+import { getServerBaseUrl } from "utils/util";
 
 interface Props {
     event: Event;
@@ -18,7 +19,7 @@ export async function getServerSideProps(context: NextPageContext) {
     try {
         // valdate valid admin user
         const cookie = context.req?.headers.cookie;
-        const response = await fetch(`${urls.baseUrl}${urls.api.validateLogin}`, {
+        const response = await fetch(`${getServerBaseUrl(context.req)}${urls.api.validateLogin}`, {
             method: "POST",
             headers: {
                 cookie: cookie || "",

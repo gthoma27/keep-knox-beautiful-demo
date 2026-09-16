@@ -6,6 +6,7 @@ import { NextPage, NextPageContext } from "next";
 import { useRouter } from "next/router";
 import ErrorPage from "next/error";
 import urls from "utils/urls";
+import { getServerBaseUrl } from "utils/util";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
 import CoreTypography from "src/components/core/typography";
@@ -141,7 +142,7 @@ export async function getServerSideProps(context: NextPageContext) {
     try {
         // validate valid admin user
         const cookie = context.req?.headers.cookie;
-        const response = await fetch(`${urls.baseUrl}${urls.api.validateLogin}`, {
+        const response = await fetch(`${getServerBaseUrl(context.req)}${urls.api.validateLogin}`, {
             method: "POST",
             headers: {
                 cookie: cookie || "",

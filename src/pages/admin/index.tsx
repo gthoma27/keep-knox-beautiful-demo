@@ -9,6 +9,7 @@ import { Event, Admin, LoadMorePaginatedData, ApiResponse } from "utils/types";
 import urls from "utils/urls";
 import colors from "src/components/core/colors";
 import Router from "next/router";
+import { getServerBaseUrl } from "utils/util";
 
 // mui
 import { Button, Container, createStyles, Grid, makeStyles, Theme, Divider } from "@material-ui/core";
@@ -169,7 +170,7 @@ const Home: NextPage<Props> = ({ currentEvents, pastEvents, width }) => {
 export async function getServerSideProps(context: NextPageContext) {
     try {
         const cookie = context.req?.headers.cookie;
-        const response = await fetch(`${urls.baseUrl}${urls.api.validateLogin}`, {
+        const response = await fetch(`${getServerBaseUrl(context.req)}${urls.api.validateLogin}`, {
             method: "POST",
             headers: {
                 cookie: cookie || "",
